@@ -19,7 +19,7 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-
+        input-processors = <&zip_temp_layer 7 100000>;
     };
 };
 
@@ -59,7 +59,7 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         //automouse-layer = <8>;
-        scroll-layers = <6>;
+        scroll-layers = <8>;
 
     };
 };

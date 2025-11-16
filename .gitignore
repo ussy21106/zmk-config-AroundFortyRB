@@ -1,0 +1,11 @@
+.west/
+build/
+modules/
+zephyr/
+zmk/
+tmp/
+*.log
+.DS_Store
+*.back
+zmk-pmw3610-driver/
+zmk-rgbled-widget/
