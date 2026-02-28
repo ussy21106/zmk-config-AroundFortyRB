@@ -1,4 +1,6 @@
 #include "AroundForty-RB.dtsi"
+#include <input/processors.dtsi>                                 /* # input processor定義を使う（ここは必ずファイル先頭へ） */
+
 
 
 &default_transform {
@@ -19,7 +21,13 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_temp_layer 7 100000>;
+        input-processors = <&zip_temp_layer 9 100000>;
+
+        scroll_override {                                        /* # レイヤー中だけスクロール化（対応しているfork/版のみ有効） */
+            layers = <2 5>;                                      /* # スクロール化したいレイヤー番号 */
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 12>;       /* # XY移動→スクロールに変換 */
+            process-next;                                        /* # B：この後もベース（zip_temp_layer）を続けて適用 */
+        };                                                       /* # override終わり */
     };
 };
 
@@ -59,7 +67,7 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         //automouse-layer = <8>;
-        scroll-layers = <8>;
+        //scroll-layers = <10>;
 
     };
 };
