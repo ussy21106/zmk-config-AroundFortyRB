@@ -3,3 +3,9 @@ config SHIELD_ARROUNDFORTY_RB_R
 
 config SHIELD_ARROUNDFORTY_RB_L
     def_bool $(shields_list_contains,AroundForty-RB_L)
+
+config SHIELD_ARROUNDFORTY_RB_R_DONGLE
+    def_bool $(shields_list_contains,AroundForty-RB_R_dongle)
+
+config SHIELD_ARROUNDFORTY_RB_L_DONGLE
+    def_bool $(shields_list_contains,AroundForty-RB_L_dongle)
