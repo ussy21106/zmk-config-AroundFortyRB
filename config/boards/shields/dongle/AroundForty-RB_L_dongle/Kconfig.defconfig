@@ -1,0 +1,12 @@
+if SHIELD_ARROUNDFORTY_RB_L_DONGLE
+
+config ZMK_KEYBOARD_NAME
+    default "AroundForty-RB_L_Dongle"
+
+config ZMK_SPLIT
+    default y
+
+config ZMK_SPLIT_ROLE_CENTRAL
+    default n
+
+endif

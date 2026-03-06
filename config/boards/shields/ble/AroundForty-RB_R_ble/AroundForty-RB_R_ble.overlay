@@ -1,6 +1,7 @@
-#include "AroundForty-RB.dtsi"
+#include "../../common/AroundForty-RB.dtsi"
 #include <input/processors.dtsi>                                 /* # input processor定義を使う（ここは必ずファイル先頭へ） */
-
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <dt-bindings/zmk/input_transform.h>
 
 
 &default_transform {
@@ -21,7 +22,8 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_temp_layer 9 100000>;
+        //input-processors = <&zip_temp_layer 9 100000>;
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_temp_layer 9 100000>;
 
         scroll_override {                                        /* # レイヤー中だけスクロール化（対応しているfork/版のみ有効） */
             layers = <2 5>;                                      /* # スクロール化したいレイヤー番号 */
@@ -69,6 +71,14 @@
         //automouse-layer = <8>;
         //scroll-layers = <10>;
 
+        evt-type = <INPUT_EV_REL>;
+        x-input-code = <INPUT_REL_X>;
+        y-input-code = <INPUT_REL_Y>;
+
+        /* 旧 .conf からの移行例（必要に応じてコメントアウトを外して使用） */
+        cpi = <400>;       /* 旧: CONFIG_PMW3610_CPI=700 */
+        invert-x;          /* 旧: CONFIG_PMW3610_INVERT_X=y */
+        //invert-y;          /* 旧: CONFIG_PMW3610_INVERT_Y=y */
     };
 };
 

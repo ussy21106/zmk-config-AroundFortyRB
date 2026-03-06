@@ -11,3 +11,4 @@ zmk-pmw3610-driver/
 zmk-rgbled-widget/
 config/AroundForty-RB_*.keymap
 
+zmk-component-raytac-dongle/
