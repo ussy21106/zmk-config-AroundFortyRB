@@ -210,7 +210,7 @@
         Mac_screenshot: Mac_screenshot {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LG(LS(N4))>;
+            bindings = <&kp LG(LS(N5))>;
             label = "MAC_SCREENSHOT";
         };
 

@@ -22,12 +22,16 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        //input-processors = <&zip_temp_layer 9 100000>;
-        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_temp_layer 9 100000>;
+        //input-pro/cessors = <&zip_temp_layer 9 100000>;
+
+        // リスナー：X・Y両方をリスナーで処理
+        input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
+                          <&zip_xy_scaler 3 2>,
+                          <&zip_temp_layer 9 100000>;
 
         scroll_override {                                        /* # レイヤー中だけスクロール化（対応しているfork/版のみ有効） */
             layers = <2 5>;                                      /* # スクロール化したいレイヤー番号 */
-            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 12>;       /* # XY移動→スクロールに変換 */
+            input-processors = <&zip_xy_to_scroll_mapper>, <&zip_scroll_scaler 1 24>;       /* # XY移動→スクロールに変換 */
             process-next;                                        /* # B：この後もベース（zip_temp_layer）を続けて適用 */
         };                                                       /* # override終わり */
     };
@@ -77,7 +81,8 @@
 
         /* 旧 .conf からの移行例（必要に応じてコメントアウトを外して使用） */
         cpi = <400>;       /* 旧: CONFIG_PMW3610_CPI=700 */
-        invert-x;          /* 旧: CONFIG_PMW3610_INVERT_X=y */
+        force-awake;
+        //invert-x;          /* 旧: CONFIG_PMW3610_INVERT_X=y */
         //invert-y;          /* 旧: CONFIG_PMW3610_INVERT_Y=y */
     };
 };
