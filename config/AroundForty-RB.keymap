@@ -36,15 +36,15 @@
         16 // J
         17 // K
         18 // L 
-        27 // M
-        29 // .
+        //27 // M
+        //29 // .
         31 // LEFT_CONTROL
     >;
 };
 
 //キー入力から一定時間はAMLを発動しない
 &zip_temp_layer {
-    require-prior-idle-ms = <200>;
+    require-prior-idle-ms = <500>;
 };
 //マウスキーを押したらタイムアウトを延長する
 &mkp_input_listener {
@@ -677,17 +677,17 @@
             bindings = <
 &kp S_EXCL          &kp S_DQUO  &kp HASH     &kp S_DLR    &kp S_PERC                     &kp S_AMPR       &kp S_QUOT     &kp S_LPRN      &kp S_RPRN       &kp JP_MINS
 &kp JP_1            &kp JP_2    &kp JP_3     &kp JP_4     &kp JP_5                       &kp JP_6         &kp JP_7       &kp JP_8        &kp JP_9         &mm_num0_tilde
-&trans              &none       &none        &none        &none        &none             &kp JP_EQL       &kp S_ASTR     &kp S_PLUS      ASSYM(S_QUESTION, JP_SLASH)     &kp S_UNDS
-&trans              &trans      &trans       &none        &none        &none             &kp ENTER        &none          &kp TAB         &none           &none                           &kp RCTRL
+&trans              &none       &none        &none        &none        &none             &kp JP_EQL       &kp S_ASTR     &kp S_PLUS      &kp JP_SLASH     &kp S_UNDS
+&trans              &trans      &trans       &none        &none        &none             &kp ENTER        &none          &kp TAB         &none            &kp S_QUESTION
             >;
         };
 
         LAYER_FUNCTION {
             bindings = <
-&kp F1                  &kp F2  &kp F3     &kp F4 &kp F5                                         &kp F6             &kp F7                    &kp F8                  &kp F9                  &kp F10
-&none                   &none   &none      &none  &none                                     &kp LC(S_PLUS)    ASSYM(S_LCBR, JP_LBKT)    ASSYM(S_RCBR, JP_RBKT)  ASSYM(S_PLUS, JP_SEMI)  &kp F11
-&kp LEFT_SHIFT          &none   &none      &none  &none           &none                     &kp LC(JP_MINS)    &none                     &none                   ASSYM(S_ASTR, JP_COLN)  &kp F12
-&kp LEFT_CONTROL        &trans  &trans     &none  &none           &none                     &none              &none                     &kp RCTRL               &kp RCTRL                   ASSYM(S_TILDE, JP_CIRC)
+&kp F1                  &kp F2  &kp F3     &kp F4 &kp F5                                    &kp F6            &kp F7                    &kp F8                  &kp F9       &kp F10
+&none                   &none   &none      &none  &none                                     &kp LC(S_PLUS)    ASSYM(S_LCBR, JP_LBKT)    ASSYM(S_RCBR, JP_RBKT)  &none        &kp F11
+&kp LEFT_SHIFT          &none   &none      &none  &none           &none                     &kp LC(JP_MINS)   &kp S_BQ                  &kp S_TILDE             &none        &kp F12
+&kp LEFT_CONTROL        &trans  &trans     &none  &none           &none                     &none             &none                     &kp RCTRL               &kp RCTRL    ASSYM(S_TILDE, JP_CIRC)
             >;
         };
 
@@ -707,17 +707,17 @@
         LAYER_MOUSE {
             bindings = <
 &trans          &trans        &trans        &trans     &trans          &trans    &trans     &trans     &trans     &trans
-&trans          &trans        &trans        &trans     &trans          &mkp MB4  &mkp LCLK  &mkp MCLK  &mkp RCLK  &mkp MB5
-&kp LEFT_SHIFT  &trans        &trans        &trans     &trans  &mkp LCLK  &trans    &mkp LCLK  &none      &mkp RCLK  &none
-&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &exit_AML  &trans  &trans  &trans     &trans    &trans     &trans     &trans
+&trans          &trans        &trans        &trans     &trans          &trans    &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans
+&kp LEFT_SHIFT  &trans        &trans        &trans     &trans  &trans  &trans    &trans     &none      &trans     &none
+&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &exit_AML  &trans  &trans  &trans    &trans     &trans     &trans     &trans
             >;
         };
 
         LAYER_SCROLL {
             bindings = <
 &none  &none  &none  &none  &none                                    &none  &none        &none  &none        &none
-&none  &none  &none  &none  &none                                    &none  &none        &none  &none        &none
-&kp LEFT_SHIFT  &none  &none  &none  &none  &none                    &none  &mkp LCLK    &none  &mkp RCLK    &none
+&none  &none  &none  &none  &none                                    &none  &mkp LCLK    &none  &mkp RCLK    &none
+&kp LEFT_SHIFT  &none  &none  &none  &none  &none                    &none  &none        &none  &none        &none
 &kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &none  &none  &none      &kp RIGHT_COMMAND  &none &mt RCTRL TAB    &none    &none
             >;
         };

@@ -12,3 +12,4 @@ zmk-rgbled-widget/
 config/AroundForty-RB_*.keymap
 
 zmk-component-raytac-dongle/
+/config/boards/shields/ble/AroundForty-RB_R_ble/AroundForty-RB_R_ble_20260315.conf
