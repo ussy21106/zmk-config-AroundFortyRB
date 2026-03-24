@@ -248,16 +248,6 @@
             label = "EXIT_NUM_LANG1";
         };
 
-        //AML関連設定
-        exit_AML: exit_AML {
-            compatible = "zmk,behavior-macro";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            #binding-cells = <0>;
-            bindings = <&tog_off LAYER_MOUSE>;
-            label = "exit_AML";
-        };
-
         // 記号レイヤー移動 + 英数キー
         togle_symbol: togle_symbol {
             label = "TOGGLE_SYMBOL";
@@ -709,7 +699,7 @@
 &trans          &trans        &trans        &trans     &trans          &trans    &trans     &trans     &trans     &trans
 &trans          &trans        &trans        &trans     &trans          &trans    &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans
 &kp LEFT_SHIFT  &trans        &trans        &trans     &trans  &trans  &trans    &trans     &none      &trans     &none
-&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &exit_AML  &trans  &trans  &trans    &trans     &trans     &trans     &trans
+&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &trans     &trans  &trans  &trans    &trans     &trans     &trans     &trans
             >;
         };
 
