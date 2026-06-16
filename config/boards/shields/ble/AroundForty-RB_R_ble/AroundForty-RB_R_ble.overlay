@@ -26,7 +26,7 @@
 
         // リスナー：X・Y両方をリスナーで処理
         input-processors = <&zip_xy_transform (INPUT_TRANSFORM_X_INVERT)>,
-                          <&zip_xy_scaler 3 2>,
+                          <&zip_xy_scaler 5 2>,
                           <&zip_temp_layer 9 100000>;
 
         scroll_override {                                        /* # レイヤー中だけスクロール化（対応しているfork/版のみ有効） */
@@ -80,7 +80,7 @@
         y-input-code = <INPUT_REL_Y>;
 
         /* 旧 .conf からの移行例（必要に応じてコメントアウトを外して使用） */
-        cpi = <400>;       /* 旧: CONFIG_PMW3610_CPI=700 */
+        cpi = <300>;       /* 旧: CONFIG_PMW3610_CPI=700 */
         force-awake;
         //invert-x;          /* 旧: CONFIG_PMW3610_INVERT_X=y */
         //invert-y;          /* 旧: CONFIG_PMW3610_INVERT_Y=y */
