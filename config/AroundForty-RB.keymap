@@ -31,25 +31,28 @@
 #define LAYER_SETTINGS 11       // 設定レイヤー
 
 //AML関連設定
-&zip_temp_layer {
-    excluded-positions = <
-        16 // J
-        17 // K
-        18 // L 
-        27 // M
-        29 // .
-        31 // LEFT_CONTROL
-    >;
-};
-
-//キー入力から一定時間はAMLを発動しない
-&zip_temp_layer {
-    require-prior-idle-ms = <200>;
-};
-//マウスキーを押したらタイムアウトを延長する
-&mkp_input_listener {
-    input-processors = <&zip_temp_layer LAYER_MOUSE 10000>;
-};
+//&zip_temp_layer {
+//    excluded-positions = <
+//        6 // U
+//        7 // I
+//        8 // O
+//        //16 // J
+//        //17 // K
+//        //18 // L
+//        //27 // M
+//        //29 // .
+//        31 // LEFT_CONTROL
+//    >;
+//};
+//
+////キー入力から一定時間はAMLを発動しない
+//&zip_temp_layer {
+//    require-prior-idle-ms = <500>;
+//};
+////マウスキーを押したらタイムアウトを延長する
+//&mkp_input_listener {
+//    input-processors = <&zip_temp_layer LAYER_MOUSE 10000>;
+//};
 ////マウスキーを押すまでマウスレイヤーに留まる(マウスキーを押したらタイムアウトを延長すると同じ実装で、タイムアウト時間が違うだけ)
 //&mkp_input_listener {
 //    input-processors = <&zip_temp_layer LAYER_MOUSE 250>;
@@ -98,9 +101,75 @@
             bindings = <&back_to_default_win>;
             layers = <INSERT_WIN_LAYER>, <DEFAULT_WIN_LAYER>;
         };
+ 
+        // f (13) + 右上1 (9) ➔ パイプ |
+        combo_pipe { timeout-ms = <300>; key-positions = <13 9>; bindings = <&macro_pipe>; };
+    
+        // f (13) + 右上2 (19) ➔ 円マーク ¥
+        combo_yen { timeout-ms = <300>; key-positions = <13 19>; bindings = <&macro_backslash>; };
+    
+        // f (13) + 右上3 (30) ➔ アンダーバー _
+        combo_under { timeout-ms = <300>; key-positions = <13 30>; bindings = <&macro_under>; };
+
+                /*
+         * J + K：左クリック
+         *
+         * slow-releaseにより、
+         * コンボ成立後にKを離しても、
+         * Jを押している間は左クリックを維持する。
+         */
+        /* K + L：中クリック */
+        combo_middle_click {
+            timeout-ms = <40>;
+            key-positions = <17 18>;
+            bindings = <&mkp MCLK>;
+            slow-release;
+            //layers = <0>;
+        };
+
+        /* L + ;：右クリック */
+        combo_right_click {
+            timeout-ms = <40>;
+            key-positions = <18 19>;
+            bindings = <&mkp RCLK>;
+            slow-release;
+            //layers = <0>;
+        };
     };
 
     macros {
+        // パイプ | (Alt + 124)
+        macro_pipe: macro_pipe {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>; tap-ms = <40>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N1 &kp KP_N2 &kp KP_N4>, <&macro_release &kp LALT>;
+        };
+    
+        // 円マーク ¥ (Alt + 165)
+        macro_yen: macro_yen {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>; tap-ms = <40>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N1 &kp KP_N6 &kp KP_N5>, <&macro_release &kp LALT>;
+        };
+    
+        // アンダーバー _ (Alt + 95)
+        macro_under: macro_under {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>; tap-ms = <40>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N9 &kp KP_N5>, <&macro_release &kp LALT>;
+        };
+    
+        // バックスラッシュ \ (Alt + 92)
+        macro_backslash: macro_backslash {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <30>; tap-ms = <40>;
+            bindings = <&macro_press &kp LALT>, <&macro_tap &kp KP_N9 &kp KP_N2>, <&macro_release &kp LALT>;
+        };
+ 
         // Mac用: スロット1に合わせ、他を切断
         switch_to_mac_note: switch_to_mac_note {
             compatible = "zmk,behavior-macro";
@@ -210,14 +279,14 @@
         Mac_screenshot: Mac_screenshot {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LG(LS(N4))>;
+            bindings = <&kp RG(LS(N5))>;
             label = "MAC_SCREENSHOT";
         };
 
         Win_screenshot: Win_screenshot {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LG(LS(S))>;
+            bindings = <&kp RG(LS(S))>;
             label = "WIN_SCREENSHOT";
         };
 
@@ -246,16 +315,6 @@
                 &kp LANG1
             >;
             label = "EXIT_NUM_LANG1";
-        };
-
-        //AML関連設定
-        exit_AML: exit_AML {
-            compatible = "zmk,behavior-macro";
-            wait-ms = <0>;
-            tap-ms = <0>;
-            #binding-cells = <0>;
-            bindings = <&tog_off LAYER_MOUSE>;
-            label = "exit_AML";
         };
 
         // 記号レイヤー移動 + 英数キー
@@ -466,7 +525,7 @@
             label = "TD_LANG_PASTE";
             #binding-cells = <0>;
             tapping-term-ms = <350>;
-            bindings = <&kp LANG2>, <&kp LANG1>, <&kp LA(LG(V))>;
+            bindings = <&kp LANG2>, <&kp LANG1>, <&kp LC(LA(V))>;
         };
 
         // tap dance の3タップ目に差し込む
@@ -605,6 +664,22 @@
             mods = <(MOD_LSFT | MOD_RSFT)>;
             bindings = <&kp BACKSPACE &kp DELETE>;
         };
+        /*
+         * タップ：左クリック
+         * ホールド：右Ctrl
+         *
+         * 使用時：
+         * &kp_mclk RCTRL LCLK
+         */
+        kp_mclk: kp_mclk {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+
+            flavor = "hold-preferred";
+            tapping-term-ms = <200>;
+
+            bindings = <&kp>, <&mkp>;
+        };
     };
 
 //////// 重要 ////////
@@ -620,27 +695,27 @@
         DEFAULT_MAC_LAYER  {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                                &kp T                                                                                     &kp Y                            &kp U                      &td_i_insert_mac             &kp O                         &kp P
-&kp A             &kp S         &kp D         &kp F                                &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &lt LAYER_ARROW_MAC JP_SCLN
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                &kp B                                     &td_lang_paste                                  &kp N                            &kp M                      ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_COLN
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &lt_arrow LAYER_ARROW_MAC ESCAPE     &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred LAYER_FUNCTION JP_AT    &lt_arrow LAYER_ARROW_MAC ENTER        ASSYM(S_PIPE, JP_YEN_MAC)  &mt LEFT_GUI BACKSPACE        &none                         &kp RCTRL
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F                    &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &mkp LCLK
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                &kp B                                     &td_lang_paste                                  &kp N                            &kp M                      ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
+&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &lt_arrow LAYER_ARROW_MAC ESCAPE     &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred LAYER_FUNCTION JP_AT    &lt_arrow LAYER_ARROW_MAC ENTER        ASSYM(S_PIPE, JP_YEN_MAC)  &mt RIGHT_GUI BACKSPACE        &none                 &mt RCTRL JP_COLN
             >;
         };
 
         INSERT_MAC_LAYER {
             bindings = <      
 &kp Q             &kp W         &kp E         &kp R                                &kp T                                                                                     &kp Y                            &kp U                      &td_i_insert_mac             &kp O                         &kp P
-&kp A             &kp S         &kp D         &kp F                                &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &lt LAYER_ARROW_MAC JP_SCLN
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                &kp B                                     &td_lang_paste                                  &kp N                            &kp M                      ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_COLN
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &back_to_normal_mac                  &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred_td LAYER_FUNCTION &td_lang1_at    &lt_arrow LAYER_ARROW_MAC ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt LEFT_GUI BACKSPACE        &none                         &kp RCTRL
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F                    &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &mkp LCLK
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                &kp B                                     &td_lang_paste                                  &kp N                            &kp M                      ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
+&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &back_to_normal_mac                  &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred_td LAYER_FUNCTION &td_lang1_at    &lt_arrow LAYER_ARROW_MAC ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RIGHT_GUI BACKSPACE        &none             &mt RCTRL JP_COLN
             >;
         };
 
         LAYER_ARROW_MAC {
             bindings = <
-&kp ESCAPE        &none                  &kp LC(UP_ARROW)        &none          &none                                               &kp LG(UP_ARROW)                   &kp HOME      &none            &kp END      &kp LG(DOWN_ARROW)
-&kp TAB           &kp LA(LG(UP_ARROW))   &kp LC(LEFT_ARROW)      &kp LC(RIGHT_ARROW)      &none                                     &kp LEFT                           &kp DOWN_ARROW          &kp UP_ARROW     &kp RIGHT_ARROW          &kp LG(JP_LBKT)
-&kp LEFT_SHIFT    &kp LA(LG(DOWN_ARROW)) &kp LA(LG(LEFT_ARROW))  &kp LA(LG(RIGHT_ARROW))  &none &kp TAB                             &none                              &kp DELETE              &none            &none                    &kp LG(JP_RBKT)
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &kp LG(Z)          &kp LG(LS(Z))            &kp LEFT_GUI                              &kp TAB                            &none                   &kp BACKSPACE    &none                    &Mac_screenshot
+&kp ESCAPE        &none                  &kp LC(UP_ARROW)        &kp RG(Z)                &kp RG(LS(Z))                             &kp RG(UP_ARROW)                   &kp HOME                &none            &kp END      &kp RG(DOWN_ARROW)
+&kp TAB           &kp LA(RG(UP_ARROW))   &kp LC(LEFT_ARROW)      &kp LC(RIGHT_ARROW)      &none                                     &kp LEFT                           &kp DOWN_ARROW          &kp UP_ARROW     &kp RIGHT_ARROW          &kp RG(JP_LBKT)
+&kp LEFT_SHIFT    &kp LA(RG(DOWN_ARROW)) &kp LA(RG(LEFT_ARROW))  &kp LA(RG(RIGHT_ARROW))  &none           &kp TAB                   &none                              &kp DELETE              &none            &none                    &kp RG(JP_RBKT)
+&kp LCTRL         &kp LEFT_ALT           &kp LEFT_GUI            &none                    &none           &kp LEFT_GUI              &kp TAB                            &none                   &kp BACKSPACE    &none                    &Mac_screenshot
             >;
         };
 
@@ -649,27 +724,27 @@
     DEFAULT_WIN_LAYER {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                  &kp T                                                           &kp Y        &kp U           &td_i_insert_win          &kp O       &kp P
-&kp A             &kp S         &kp D         &kp F                  &kp G                                                           &kp H        &kp J           &kp K          &kp L       &lt LAYER_ARROW_WIN JP_SCLN
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M           ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_COLN
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &lt_arrow LAYER_ARROW_WIN ESCAPE     &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred LAYER_FUNCTION JP_AT    &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &kp RCTRL
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F      &kp G                                                           &kp H        &kp J           &kp K          &kp L       &mkp LCLK
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M           ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
+&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &lt_arrow LAYER_ARROW_WIN ESCAPE     &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred LAYER_FUNCTION JP_AT    &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &mt RCTRL JP_COLN
             >;
     };
 
         INSERT_WIN_LAYER {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                  &kp T                                                           &kp Y        &kp U        &td_i_insert_win           &kp O       &kp P
-&kp A             &kp S         &kp D         &kp F                  &kp G                                                           &kp H        &kp J        &kp K          &kp L       &lt LAYER_ARROW_WIN JP_SCLN
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M        ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_COLN
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &back_to_normal_win    &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred_td LAYER_FUNCTION &td_lang1_at    &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &kp RCTRL
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F      &kp G                                                           &kp H        &kp J        &kp K          &kp L       &mkp LCLK
+&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M        ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
+&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &back_to_normal_win    &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred_td LAYER_FUNCTION &td_lang1_at    &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &mt RCTRL JP_COLN
             >;
         };
 
         LAYER_ARROW_WIN {
             bindings = <
-&kp ESCAPE        &none         &kp LG(TAB)                &none               &none                                               &kp LC(HOME)                         &kp HOME        &none                &kp END       &kp LC(END)
-&kp TAB           &none         &kp LC(LG(LEFT))           &kp LC(LG(RIGHT))   &kp F12                                             &kp LEFT                             &kp DOWN_ARROW  &kp UP_ARROW         &kp RIGHT_ARROW  &kp LA(LEFT)
+&kp ESCAPE        &none         &kp RG(TAB)                &kp LC(Z)           &kp LC(Y)                                           &kp LC(HOME)                         &kp HOME        &none                &kp END       &kp LC(END)
+&kp TAB           &none         &kp LC(RG(LEFT))           &kp LC(RG(RIGHT))   &kp F12                                             &kp LEFT                             &kp DOWN_ARROW  &kp UP_ARROW         &kp RIGHT_ARROW  &kp LA(LEFT)
 &kp LEFT_SHIFT    &none         &kp LS(LC(TAB))            &kp LC(TAB)         &kp LC(MINUS)   &kp TAB                             &none                                &kp DELETE                           &none           &none         &kp LA(RIGHT)
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI               &kp LC(Z)           &kp LC(Y)       &kp LEFT_ALT                        &kp TAB                              &none           &kp BACKSPACE        &none           &Win_screenshot
+&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI               &none               &none           &kp LEFT_ALT                        &kp TAB                              &none           &kp BACKSPACE        &none           &Win_screenshot
             >;
         };
 
@@ -677,17 +752,17 @@
             bindings = <
 &kp S_EXCL          &kp S_DQUO  &kp HASH     &kp S_DLR    &kp S_PERC                     &kp S_AMPR       &kp S_QUOT     &kp S_LPRN      &kp S_RPRN       &kp JP_MINS
 &kp JP_1            &kp JP_2    &kp JP_3     &kp JP_4     &kp JP_5                       &kp JP_6         &kp JP_7       &kp JP_8        &kp JP_9         &mm_num0_tilde
-&trans              &none       &none        &none        &none        &none             &kp JP_EQL       &kp S_ASTR     &kp S_PLUS      ASSYM(S_QUESTION, JP_SLASH)     &kp S_UNDS
-&trans              &trans      &trans       &none        &none        &none             &kp ENTER        &none          &kp TAB         &none           &none                           &kp RCTRL
+&trans              &none       &none        &none        &none        &none             &kp JP_EQL       &kp S_ASTR     &kp S_PLUS      &kp JP_SLASH     &kp S_UNDS
+&trans              &trans      &trans       &none        &none        &none             &kp ENTER        &none          &kp TAB         &none            &kp S_QUESTION
             >;
         };
 
         LAYER_FUNCTION {
             bindings = <
-&kp F1                  &kp F2  &kp F3     &kp F4 &kp F5                                         &kp F6             &kp F7                    &kp F8                  &kp F9                  &kp F10
-&none                   &none   &none      &none  &none                                     &kp LC(S_PLUS)    ASSYM(S_LCBR, JP_LBKT)    ASSYM(S_RCBR, JP_RBKT)  ASSYM(S_PLUS, JP_SEMI)  &kp F11
-&kp LEFT_SHIFT          &none   &none      &none  &none           &none                     &kp LC(JP_MINS)    &none                     &none                   ASSYM(S_ASTR, JP_COLN)  &kp F12
-&kp LEFT_CONTROL        &trans  &trans     &none  &none           &none                     &none              &none                     &kp RCTRL               &kp RCTRL                   ASSYM(S_TILDE, JP_CIRC)
+&kp F1                  &kp F2  &kp F3     &kp F4 &kp F5                                    &kp F6            &kp F7                    &kp F8                  &kp F9       &kp F10
+&none                   &none   &none      &none  &none                                     &kp LC(S_PLUS)    ASSYM(S_LCBR, JP_LBKT)    ASSYM(S_RCBR, JP_RBKT)  &none        &kp F11
+&kp LEFT_SHIFT          &none   &none      &none  &none           &none                     &kp LC(JP_MINS)   &kp S_BQ                  &kp S_TILDE             &none        &kp F12
+&kp LEFT_CONTROL        &trans  &trans     &none  &none           &none                     &none             &none                     &kp RCTRL               &kp RCTRL    ASSYM(S_TILDE, JP_CIRC)
             >;
         };
 
@@ -706,19 +781,19 @@
 
         LAYER_MOUSE {
             bindings = <
-&trans          &trans        &trans        &trans     &trans          &trans    &trans     &trans     &trans     &trans
-&trans          &trans        &trans        &trans     &trans          &mkp MB4  &mkp LCLK  &mkp MCLK  &mkp RCLK  &mkp MB5
-&kp LEFT_SHIFT  &trans        &trans        &trans     &trans  &mkp LCLK  &trans    &mkp LCLK  &none      &mkp RCLK  &none
-&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &exit_AML  &trans  &trans  &trans     &trans    &trans     &trans     &trans
+&none           &none         &none         &none            &none              &kp LEFT    &kp DOWN   &kp UP     &kp RIGHT  &none
+&none           &none         &none         &none            &none              &none       &mkp LCLK  &mkp MCLK  &mkp RCLK  &mkp LCLK
+&kp LEFT_SHIFT  &none         &none         &none            &none       &none  &none       &none      &none      &none      &none
+&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &mo LAYER_SCROLL &none       &none  &none       &none      &none      &none      &none
             >;
         };
 
         LAYER_SCROLL {
             bindings = <
-&none  &none  &none  &none  &none                                    &none  &none        &none  &none        &none
-&none  &none  &none  &none  &none                                    &none  &none        &none  &none        &none
-&kp LEFT_SHIFT  &none  &none  &none  &none  &none                    &none  &mkp LCLK    &none  &mkp RCLK    &none
-&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &none  &none  &none      &kp RIGHT_COMMAND  &none &mt RCTRL TAB    &none    &none
+&none  &none  &none  &none  &none                                    &none              &none         &none            &none        &kp C_MUTE
+&none  &none  &none  &none  &none                                    &kp LEFT           &kp DOWN      &kp UP           &kp RIGHT    &kp C_VOL_UP
+&kp LEFT_SHIFT  &none  &none  &none  &none  &none                    &none              &none         &none            &none        &kp C_VOL_DN
+&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &none  &none  &none      &kp RIGHT_COMMAND  &none         &mt RCTRL TAB    &none        &none
             >;
         };
 

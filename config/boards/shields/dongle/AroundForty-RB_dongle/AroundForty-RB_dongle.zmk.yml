@@ -1,0 +1,8 @@
+file_format: "1"
+id: AroundForty-RB_dongle
+name: AroundForty-RB
+type: shield
+url: https://github.com/razilyis/zmk-config-AroundForty-RB
+requires: [raytac_mdbt50q_rx]
+features:
+  - keys

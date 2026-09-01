@@ -18,10 +18,33 @@
 #
 ---
 include:
+  # ── ドングル構成 ──────────────────────────────
+  - board: raytac_mdbt50q_rx
+    shield: AroundForty-RB_dongle
+    artifact-name: dongle
+
+  - board: seeeduino_xiao_ble
+    shield: AroundForty-RB_L_dongle rgbled_adapter
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+    artifact-name: left_dongle
+
+  - board: seeeduino_xiao_ble
+    shield: AroundForty-RB_R_dongle rgbled_adapter
+    cmake-args: -DCONFIG_ZMK_SPLIT=y -DCONFIG_ZMK_SPLIT_ROLE_CENTRAL=n
+    artifact-name: right_dongle
+
+  # ── ドングルなし通常版（BLE直接接続） ────────────
   - board: seeeduino_xiao_ble
     shield: AroundForty-RB_R rgbled_adapter
     snippet: studio-rpc-usb-uart
   - board: seeeduino_xiao_ble
     shield: AroundForty-RB_L rgbled_adapter
+
+  # ── settings_reset（ボード別） ─────────────────
   - board: seeeduino_xiao_ble
     shield: settings_reset
+    artifact-name: settings_reset_xiao
+
+  - board: raytac_mdbt50q_rx
+    shield: settings_reset
+    artifact-name: settings_reset_dongle
