@@ -118,21 +118,13 @@
          * コンボ成立後にKを離しても、
          * Jを押している間は左クリックを維持する。
          */
-        combo_left_click {
-            timeout-ms = <40>;
-            key-positions = <16 17>;
-            bindings = <&mkp LCLK>;
-            slow-release;
-            layers = <0>;
-        };
-
         /* K + L：中クリック */
         combo_middle_click {
             timeout-ms = <40>;
             key-positions = <17 18>;
             bindings = <&mkp MCLK>;
             slow-release;
-            layers = <0>;
+            //layers = <0>;
         };
 
         /* L + ;：右クリック */
@@ -141,7 +133,7 @@
             key-positions = <18 19>;
             bindings = <&mkp RCLK>;
             slow-release;
-            layers = <0>;
+            //layers = <0>;
         };
     };
 
@@ -720,10 +712,10 @@
 
         LAYER_ARROW_MAC {
             bindings = <
-&kp ESCAPE        &none                  &kp LC(UP_ARROW)        &none          &none                                               &kp RG(UP_ARROW)                   &kp HOME      &none            &kp END      &kp RG(DOWN_ARROW)
+&kp ESCAPE        &none                  &kp LC(UP_ARROW)        &kp RG(Z)                &kp RG(LS(Z))                             &kp RG(UP_ARROW)                   &kp HOME                &none            &kp END      &kp RG(DOWN_ARROW)
 &kp TAB           &kp LA(RG(UP_ARROW))   &kp LC(LEFT_ARROW)      &kp LC(RIGHT_ARROW)      &none                                     &kp LEFT                           &kp DOWN_ARROW          &kp UP_ARROW     &kp RIGHT_ARROW          &kp RG(JP_LBKT)
-&kp LEFT_SHIFT    &kp LA(RG(DOWN_ARROW)) &kp LA(RG(LEFT_ARROW))  &kp LA(RG(RIGHT_ARROW))  &none &kp TAB                             &none                              &kp DELETE              &none            &none                    &kp RG(JP_RBKT)
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &kp RG(Z)          &kp RG(LS(Z))            &kp LEFT_GUI                              &kp TAB                            &none                   &kp BACKSPACE    &none                    &Mac_screenshot
+&kp LEFT_SHIFT    &kp LA(RG(DOWN_ARROW)) &kp LA(RG(LEFT_ARROW))  &kp LA(RG(RIGHT_ARROW))  &none           &kp TAB                   &none                              &kp DELETE              &none            &none                    &kp RG(JP_RBKT)
+&kp LCTRL         &kp LEFT_ALT           &kp LEFT_GUI            &none                    &none           &kp LEFT_GUI              &kp TAB                            &none                   &kp BACKSPACE    &none                    &Mac_screenshot
             >;
         };
 
@@ -749,10 +741,10 @@
 
         LAYER_ARROW_WIN {
             bindings = <
-&kp ESCAPE        &none         &kp RG(TAB)                &none               &none                                               &kp LC(HOME)                         &kp HOME        &none                &kp END       &kp LC(END)
+&kp ESCAPE        &none         &kp RG(TAB)                &kp LC(Z)           &kp LC(Y)                                           &kp LC(HOME)                         &kp HOME        &none                &kp END       &kp LC(END)
 &kp TAB           &none         &kp LC(RG(LEFT))           &kp LC(RG(RIGHT))   &kp F12                                             &kp LEFT                             &kp DOWN_ARROW  &kp UP_ARROW         &kp RIGHT_ARROW  &kp LA(LEFT)
 &kp LEFT_SHIFT    &none         &kp LS(LC(TAB))            &kp LC(TAB)         &kp LC(MINUS)   &kp TAB                             &none                                &kp DELETE                           &none           &none         &kp LA(RIGHT)
-&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI               &kp LC(Z)           &kp LC(Y)       &kp LEFT_ALT                        &kp TAB                              &none           &kp BACKSPACE        &none           &Win_screenshot
+&kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI               &none               &none           &kp LEFT_ALT                        &kp TAB                              &none           &kp BACKSPACE        &none           &Win_screenshot
             >;
         };
 
@@ -789,19 +781,19 @@
 
         LAYER_MOUSE {
             bindings = <
-&trans          &trans        &trans        &trans     &trans          &trans    &trans     &none      &trans     &trans
-&trans          &trans        &trans        &trans     &trans          &trans    &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans
-&kp LEFT_SHIFT  &trans        &trans        &trans     &trans  &trans  &trans    &trans     &none      &trans     &none
-&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &trans     &mo LAYER_SCROLL  &trans  &trans    &trans     &trans     &trans     &trans
+&none           &none         &none         &none            &none              &kp LEFT    &kp DOWN   &kp UP     &kp RIGHT  &none
+&none           &none         &none         &none            &none              &none       &mkp LCLK  &mkp MCLK  &mkp RCLK  &mkp LCLK
+&kp LEFT_SHIFT  &none         &none         &none            &none       &none  &none       &none      &none      &none      &none
+&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &mo LAYER_SCROLL &none       &none  &none       &none      &none      &none      &none
             >;
         };
 
         LAYER_SCROLL {
             bindings = <
-&none  &none  &none  &none  &none                                    &none  &none        &none  &none        &none
-&none  &none  &none  &none  &none                                    &none  &mkp LCLK    &none  &mkp RCLK    &none
-&kp LEFT_SHIFT  &none  &none  &none  &none  &none                    &none  &none        &none  &none        &none
-&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &none  &none  &none      &kp RIGHT_COMMAND  &none &mt RCTRL TAB    &none    &none
+&none  &none  &none  &none  &none                                    &none              &none         &none            &none        &kp C_MUTE
+&none  &none  &none  &none  &none                                    &kp LEFT           &kp DOWN      &kp UP           &kp RIGHT    &kp C_VOL_UP
+&kp LEFT_SHIFT  &none  &none  &none  &none  &none                    &none              &none         &none            &none        &kp C_VOL_DN
+&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &none  &none  &none      &kp RIGHT_COMMAND  &none         &mt RCTRL TAB    &none        &none
             >;
         };
 
