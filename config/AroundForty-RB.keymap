@@ -460,6 +460,24 @@
             bindings = <&mo>, <&kp>;
         };
 
+        /*
+         * 単押しではマウスボタン、長押し中は指定したレイヤーを有効にする。
+         *
+         * 使い方:
+         *   &lt_mkp LAYER_SCROLL LCLK
+         *   1つ目: 長押し中に有効にするレイヤー
+         *   2つ目: 単押しで送るマウスボタン
+         */
+        lt_mkp: lt_mkp {
+            compatible = "zmk,behavior-hold-tap";
+            label = "LAYER_TAP_MOUSE_BUTTON";
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            flavor = "hold-preferred";
+            bindings = <&mo>, <&mkp>;
+        };
+
         /* 注意:
         *  - bindings の tap 側を &kp から &td_* に差し替えるため、
         *    keymap から渡す引数は「レイヤー」だけになる
@@ -695,7 +713,7 @@
         DEFAULT_MAC_LAYER  {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                                &kp T                                                                                     &kp Y                            &kp U                      &td_i_insert_mac             &kp O                         &kp P
-&kp A             &kp S         &kp D         &lt LAYER_MOUSE F                    &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &mkp LCLK
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F                    &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &lt_mkp LAYER_SCROLL LCLK
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                &kp B                                     &td_lang_paste                                  &kp N                            &kp M                      ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
 &kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &lt_arrow LAYER_ARROW_MAC ESCAPE     &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred LAYER_FUNCTION JP_AT    &lt_arrow LAYER_ARROW_MAC ENTER        ASSYM(S_PIPE, JP_YEN_MAC)  &mt RIGHT_GUI BACKSPACE        &none                 &mt RCTRL JP_COLN
             >;
@@ -704,7 +722,7 @@
         INSERT_MAC_LAYER {
             bindings = <      
 &kp Q             &kp W         &kp E         &kp R                                &kp T                                                                                     &kp Y                            &kp U                      &td_i_insert_mac             &kp O                         &kp P
-&kp A             &kp S         &kp D         &lt LAYER_MOUSE F                    &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &mkp LCLK
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F                    &kp G                                                                                     &kp H                            &kp J                      &kp K                        &kp L                         &lt_mkp LAYER_SCROLL LCLK
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                                &kp B                                     &td_lang_paste                                  &kp N                            &kp M                      ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
 &kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &back_to_normal_mac                  &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred_td LAYER_FUNCTION &td_lang1_at    &lt_arrow LAYER_ARROW_MAC ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RIGHT_GUI BACKSPACE        &none             &mt RCTRL JP_COLN
             >;
@@ -724,7 +742,7 @@
     DEFAULT_WIN_LAYER {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                  &kp T                                                           &kp Y        &kp U           &td_i_insert_win          &kp O       &kp P
-&kp A             &kp S         &kp D         &lt LAYER_MOUSE F      &kp G                                                           &kp H        &kp J           &kp K          &kp L       &mkp LCLK
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F      &kp G                                                           &kp H        &kp J           &kp K          &kp L       &lt_mkp LAYER_SCROLL LCLK
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M           ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
 &kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &lt_arrow LAYER_ARROW_WIN ESCAPE     &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred LAYER_FUNCTION JP_AT    &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &mt RCTRL JP_COLN
             >;
@@ -733,7 +751,7 @@
         INSERT_WIN_LAYER {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                  &kp T                                                           &kp Y        &kp U        &td_i_insert_win           &kp O       &kp P
-&kp A             &kp S         &kp D         &lt LAYER_MOUSE F      &kp G                                                           &kp H        &kp J        &kp K          &kp L       &mkp LCLK
+&kp A             &kp S         &kp D         &lt LAYER_MOUSE F      &kp G                                                           &kp H        &kp J        &kp K          &kp L       &lt_mkp LAYER_SCROLL LCLK
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M        ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
 &kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &back_to_normal_win    &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred_td LAYER_FUNCTION &td_lang1_at    &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &mt RCTRL JP_COLN
             >;
