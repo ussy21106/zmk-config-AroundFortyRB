@@ -777,10 +777,10 @@
 
         LAYER_FUNCTION {
             bindings = <
-&kp F1                  &kp F2  &kp F3     &kp F4 &kp F5                                    &kp F6            &kp F7                    &kp F8                  &kp F9       &kp F10
-&none                   &none   &none      &none  &none                                     &kp LC(S_PLUS)    ASSYM(S_LCBR, JP_LBKT)    ASSYM(S_RCBR, JP_RBKT)  &none        &kp F11
-&kp LEFT_SHIFT          &none   &none      &none  &none           &none                     &kp LC(JP_MINS)   &kp S_BQ                  &kp S_TILDE             &none        &kp F12
-&kp LEFT_CONTROL        &trans  &trans     &none  &none           &none                     &none             &none                     &kp RCTRL               &kp RCTRL    ASSYM(S_TILDE, JP_CIRC)
+&kp F1                  &kp F2  &kp F3     &kp F4 &kp F5                                    &kp F6            &kp F7                    &kp F8                  &kp F9           &kp F10
+&none                   &none   &none      &none  &none                                     &kp RG(JP_EQL)    ASSYM(S_LCBR, JP_LBKT)    ASSYM(S_RCBR, JP_RBKT)  &kp S_PIPE       &kp F11
+&kp LEFT_SHIFT          &none   &none      &none  &none           &none                     &kp RG(JP_MINS)   &kp S_BQ                  &kp S_TILDE             &kp JP_YEN_MAC   &kp F12
+&kp LEFT_CONTROL        &trans  &trans     &none  &none           &none                     &none             &none                     &kp RCTRL               &kp RCTRL        ASSYM(S_TILDE, JP_CIRC)
             >;
         };
 
@@ -808,19 +808,19 @@
 
         LAYER_SCROLL {
             bindings = <
-&none  &none  &none  &none  &none                                    &none              &none         &none            &none        &kp C_MUTE
-&none  &none  &none  &none  &none                                    &kp LEFT           &kp DOWN      &kp UP           &kp RIGHT    &kp C_VOL_UP
-&kp LEFT_SHIFT  &none  &none  &none  &none  &none                    &none              &none         &none            &none        &kp C_VOL_DN
-&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &none  &none  &none      &kp RIGHT_COMMAND  &none         &mt RCTRL TAB    &none        &none
+&none           &none         &none         &none            &none                          &none              &kp HOME      &none            &kp END      &kp C_MUTE
+&none           &none         &none         &none            &kp RG(S_PLUS)                 &kp LEFT           &kp DOWN      &kp UP           &kp RIGHT    &kp C_VOL_UP
+&kp LEFT_SHIFT  &none         &none         &none            &kp RG(JP_MINS)         &none  &none              &none         &none            &none        &kp C_VOL_DN
+&kp LCTRL       &kp LEFT_ALT  &kp LEFT_GUI  &none            &none                   &none  &kp RIGHT_COMMAND  &none         &mt RCTRL TAB    &none        &none
             >;
         };
 
         LAYER_SETTINGS {
             bindings = <
-&kp JP_AT  &trans  &trans  &trans  &kp C_MUTE               &bt BT_SEL 0    &switch_to_mac_note    &bt BT_SEL 2    &switch_to_win_Desktop  &switch_to_win_note
-&trans     &trans  &trans  &trans  &kp C_VOL_UP               &kp CAPS        &switch_to_mac_layer           &trans          &switch_to_win_layer         &trans
-&trans     &trans  &trans  &trans  &kp C_VOL_DN  &bootloader  &kp KP_NUMLOCK  &none           &trans          &bootloader   &bt BT_CLR
-&trans     &trans  &trans  &trans  &trans  &sys_reset   &out OUT_BLE    &none           &out OUT_USB    &sys_reset   &bt BT_CLR_ALL
+&kp JP_AT  &trans  &trans  &trans  &kp C_MUTE                 &bt BT_SEL 0    &switch_to_mac_note    &bt BT_SEL 2    &switch_to_win_Desktop  &switch_to_win_note
+&trans     &trans  &trans  &trans  &kp C_VOL_UP               &kp CAPS        &switch_to_mac_layer   &trans          &switch_to_win_layer    &trans
+&trans     &trans  &trans  &trans  &kp C_VOL_DN  &bootloader  &kp KP_NUMLOCK  &none                  &trans          &bootloader             &bt BT_CLR
+&trans     &trans  &trans  &trans  &trans        &sys_reset   &out OUT_BLE    &none                  &out OUT_USB    &sys_reset              &bt BT_CLR_ALL
             >;
         };
     };
