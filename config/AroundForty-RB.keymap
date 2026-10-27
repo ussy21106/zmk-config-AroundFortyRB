@@ -566,8 +566,8 @@
             label = "TD_LANG_PASTE_WIN";
             tapping-term-ms = <350>;
             bindings = <
-                &kp LANG2
-                &kp LANG1
+                &kp INT_MUHENKAN  // 英数 (Meltype: 無変換で英数)
+                &kp INT_HENKAN    // 日本語 (Meltype: 変換で日本語)
                 &win_clip_altalt           
             >;
         };
@@ -755,7 +755,7 @@
     DEFAULT_WIN_LAYER {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                  &kp T                                                           &kp Y        &kp U           &kp I                     &kp O       &kp P
-&mt RIGHT_GUI A   &kp S         &kp D         &lt_mouse_eisu 0 F     &kp G                                                           &kp H        &kp J           &kp K          &kp L       &lt_mkp LAYER_SCROLL LCLK
+&mt RCTRL A       &kp S         &kp D         &lt_mouse_eisu 0 F     &kp G                                                           &kp H        &kp J           &kp K          &kp L       &lt_mkp LAYER_SCROLL LCLK
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M           ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
 &kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &lt_arrow LAYER_ARROW_WIN ESCAPE     &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred LAYER_FUNCTION JP_AT    &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &mt RCTRL JP_COLN
             >;
@@ -764,7 +764,7 @@
         INSERT_WIN_LAYER {
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                  &kp T                                                           &kp Y        &kp U        &kp I                      &kp O       &kp P
-&mt RIGHT_GUI A   &kp S         &kp D         &lt_mouse_eisu 0 F     &kp G                                                           &kp H        &kp J        &kp K          &kp L       &lt_mkp LAYER_SCROLL LCLK
+&mt RCTRL A       &kp S         &kp D         &lt_mouse_eisu 0 F     &kp G                                                           &kp H        &kp J        &kp K          &kp L       &lt_mkp LAYER_SCROLL LCLK
 &mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B         &td_lang_paste_win                                &kp N        &kp M        ASSYM(S_LESS_THAN,JP_COMMA)  ASSYM(S_GREATER_THAN,JP_DOT)  &mt RIGHT_SHIFT JP_SCLN
 &kp LCTRL         &kp LEFT_ALT  &kp LEFT_GUI  &back_to_normal_win    &lt_layer_tap_preferred LAYER_NUM SPACE   &lt_layer_tap_preferred_td LAYER_FUNCTION JP_AT           &lt_arrow LAYER_ARROW_WIN ENTER  ASSYM(S_PIPE, JP_YEN_MAC)  &mt RCTRL BACKSPACE        &none                         &mt RCTRL JP_COLN
             >;
